@@ -4,6 +4,8 @@ const helmet = require('helmet')
 const server = express()
 const Games = require('../games/games-model.js')
 
+server.use(express.json())
+
 server.get('/', (req, res) => {
     res.status(200).json({ message: 'Our last Web Sprint!  OH EM GEEE!' })
 })
@@ -17,28 +19,39 @@ server.get('/games', (req, res) => {
 })
 
 server.get('/games/:id', (req, res) => {
-    Games.findById(req.params.id)
-        .then(game => {
-            res.status(200).json(game)
-        })
-        .catch(err => res.send(err))
+    const { id } = req.params
+    Games.findById(id).then(game => {
+        if (!game) {
+            res.status(404).json({ errorMessage: 'Game could not be found' })
+        }
+        res.status(200).json(game)
+    }).catch(error => {
+        res.status(500).json(error)
+    })
 })
 
-server.post('/games', (req, res) => {
+
+server.post('/games', async (req, res) => {
     const { title, genre, releaseYear } = req.body
     if (!title || !genre || !releaseYear) {
-        res.status(422).json({ message: 'Game info incomplete' })
+        res.status(422).json({ message: 'Please provide all info and try again' })
     } else {
-        Games.add({ title, genre, releaseYear }).then(game => {
-            res.status(200).json({ game })
-        }).catch(error => {
-            res.status(500).json(error)
-        })
+        try {
+            const game = Games.add(req.body)
+            if (game) {
+                res.status(200).json({
+                    message: 'Game added'
+                });
+            }
+        } catch (error) {
+            res.status(405).json({
+                message: 'There was an error processing your request.'
+            })
+        }
     }
-
 })
 
-server.delete('/songs/:id', (req, res) => {
+server.delete('/games/:id', (req, res) => {
     const id = req.params.id
 
     Games.remove(id)

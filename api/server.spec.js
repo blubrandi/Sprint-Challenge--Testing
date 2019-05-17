@@ -18,6 +18,19 @@ describe('Server', () => {
         })
     })
 
+    it('should return { message }', async () => {
+        const res = await request(server).get('/')
+        expect(res.body).toEqual({ message: 'Our last Web Sprint!  OH EM GEEE!' })
+    })
+
+    it('should return JSON using done callback', done => {
+        request(server)
+            .get('/')
+            .then(res => {
+                expect(res.type).toBe('application/json')
+                done()
+            })
+    })
 })
 
 describe('Games JS', () => {
@@ -37,21 +50,16 @@ describe('Games JS', () => {
     })
 
     describe('add()', () => {
+        it('should add game with response 200', async () => {
+            const res = await request(server).post('/games')
+            expect(200)
+        })
+    })
+
+    describe('add()', () => {
         it('should not add game if missing info', async () => {
             const res = await request(server).post('/games')
             expect(422)
         })
     })
-
-
-    it('should return JSON using done callback', done => {
-        request(server)
-            .get('/')
-            .then(res => {
-                expect(res.type).toBe('application/json')
-                done()
-            })
-    })
-
-
 })
