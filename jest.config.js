@@ -1,30 +1,31 @@
 // For a detailed explanation regarding each configuration property, visit:
 // https://jestjs.io/docs/en/configuration.html
+const includesCoverage = process.env.NODE_ENV === 'testing'
 
 module.exports = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
-  // Stop running tests after the first failure
-  // bail: false,
+  // Stop running tests after `n` failures
+  // bail: 0,
 
   // Respect "browser" field in package.json when resolving modules
   // browser: false,
 
   // The directory where Jest should store its cached dependency information
-  // cacheDirectory: "/var/folders/x5/1y25btjs5ld40z0m33zn6zv80000gn/T/jest_dx",
+  // cacheDirectory: "/private/var/folders/x5/1y25btjs5ld40z0m33zn6zv80000gn/T/jest_dx",
 
   // Automatically clear mock calls and instances between every test
   // clearMocks: false,
 
   // Indicates whether the coverage information should be collected while executing the test
-  // collectCoverage: false,
+  collectCoverage: includesCoverage,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   // collectCoverageFrom: null,
 
   // The directory where Jest should output its coverage files
-  // coverageDirectory: null,
+  coverageDirectory: "coverage",
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
@@ -42,10 +43,13 @@ module.exports = {
   // An object that configures minimum threshold enforcement for coverage results
   // coverageThreshold: null,
 
+  // A path to a custom dependency extractor
+  // dependencyExtractor: null,
+
   // Make calling deprecated APIs throw helpful error messages
   // errorOnDeprecated: false,
 
-  // Force coverage collection from ignored files usin a array of glob patterns
+  // Force coverage collection from ignored files using an array of glob patterns
   // forceCoverageMatch: [],
 
   // A path to a module which exports an async function that is triggered once before all test suites
@@ -67,6 +71,8 @@ module.exports = {
   //   "js",
   //   "json",
   //   "jsx",
+  //   "ts",
+  //   "tsx",
   //   "node"
   // ],
 
@@ -80,7 +86,7 @@ module.exports = {
   // notify: false,
 
   // An enum that specifies notification mode. Requires { notify: true }
-  // notifyMode: "always",
+  // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration
   // preset: null,
@@ -117,8 +123,8 @@ module.exports = {
   // The paths to modules that run some code to configure or set up the testing environment before each test
   // setupFiles: [],
 
-  // The path to a module that runs some code to configure or set up the testing framework before each test
-  // setupTestFrameworkScriptFile: null,
+  // A list of paths to modules that run some code to configure or set up the testing framework before each test
+  // setupFilesAfterEnv: [],
 
   // A list of paths to snapshot serializer modules Jest should use for snapshot testing
   // snapshotSerializers: [],
@@ -134,8 +140,8 @@ module.exports = {
 
   // The glob patterns Jest uses to detect test files
   // testMatch: [
-  //   "**/__tests__/**/*.js?(x)",
-  //   "**/?(*.)+(spec|test).js?(x)"
+  //   "**/__tests__/**/*.[jt]s?(x)",
+  //   "**/?(*.)+(spec|test).[tj]s?(x)"
   // ],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
@@ -143,8 +149,8 @@ module.exports = {
   //   "/node_modules/"
   // ],
 
-  // The regexp pattern Jest uses to detect test files
-  // testRegex: "",
+  // The regexp pattern or array of patterns that Jest uses to detect test files
+  // testRegex: [],
 
   // This option allows the use of a custom results processor
   // testResultsProcessor: null,
