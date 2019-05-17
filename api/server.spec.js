@@ -7,7 +7,6 @@ describe('Server', () => {
         expect(process.env.DB_ENV).toBe('testing')
     })
 
-
     describe('GET /', () => {
         it('Should receive 200 response', () => {
             return request(server)
@@ -15,8 +14,6 @@ describe('Server', () => {
                 .expect(200);
         })
     })
-
-
 
 
 })
